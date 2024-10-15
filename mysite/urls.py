@@ -13,9 +13,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# from django.contrib import admin
+# from django.urls import path
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+# ]
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.shortcuts import redirect
+
+# Перенаправляем на страницу review_input при переходе по корневому адресу
+def redirect_to_review_input(request):
+    return redirect('review_input')  # Имя URL, которое вы используете для review_input
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('', redirect_to_review_input),  # Перенаправление на review_input
+    path('reviews/', include('reviews.urls')),]

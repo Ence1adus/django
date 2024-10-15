@@ -1,0 +1,6 @@
+<!-- reviews/templates/reviews/review_form.html -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Отправить</button>
+</form>
