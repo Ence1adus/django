@@ -7,8 +7,8 @@ from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
 import nltk
 import os
-# from googletrans import Translator
-# translator = Translator()
+from googletrans import Translator
+translator = Translator()
 # Загрузка NLTK данных (можно оставить, если они не загружены)
 nltk.download('stopwords', quiet=True)  # quiet=True подавляет вывод
 nltk.download('punkt', quiet=True)
@@ -52,10 +52,10 @@ def review_input(request):
     if request.method == 'POST':
         review_text = request.POST.get('review')
         original_review_text = review_text
-        # lang_detected = translator.detect(review_text).lang
-        # if lang_detected == 'ru':
-        #     review_text = translator.translate(review_text, dest='en').text
-        # Прогоните отзыв через модель
+        lang_detected = translator.detect(review_text).lang
+        if lang_detected == 'ru':
+            review_text = translator.translate(review_text, dest='en').text
+       
         predicted_label = classify_review(review_text)
 
         if predicted_label > 5:
